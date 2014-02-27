@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+	function ctlmousedown(dircmd){
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		url = "/control?ctrcmd="+dircmd 
+		xmlhttp.open("GET", url,true);
+		xmlhttp.send();
+	}
+	function ctlmouseup(){
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open("GET", "/control?ctrcmd=stop",true);
+		xmlhttp.send();
+	}
+	var int=self.setInterval("renewimg()",20);
+	function renewimg(){
+		var x=document.getElementById("mntimg");
+		var date=new Date();
+		var url="mntimg.jpg?"+date.toLocaleString();
+		var srcstr="\/static\/" + url;
+		x.src=srcstr;
+	}
+	</script>
+</head>
+<body>
+<h1>PiCar——QomoLiao的一个小玩具</h1>
+<hr />
+<div id="monitor">
+	<p>
+		<strong>显示摄像头的监控图像</strong>
+		<br>
+		<img id="mntimg" src={{ static_url("mntimg.jpg?") }} width="480px" height="360px" />
+	</p>
+</div>
+<hr />
+<div id="controler">
+	<table width="160" border="0">
+		<tr align="center">
+			<td colspan="3">
+				<button type="button" value="forward" onmousedown="ctlmousedown(value)" onmouseup="ctlmouseup()">前进</button>
+			</td>
+		</tr>
+		<tr align="center">
+			<td>
+				<button type="button" value="turnleft" onmousedown="ctlmousedown(value)" onmouseup="ctlmouseup()">左转</button>
+			</td>
+			<td>
+				<button type="button" value="backward" onmousedown="ctlmousedown(value)" onmouseup="ctlmouseup()">后退</button>
+			</td>
+			<td>
+				<button type="button" value="turnright" onmousedown="ctlmousedown(value)" onmouseup="ctlmouseup()">右转</button>
+			</td>
+		</tr>
+	</table>
+	<div id="test">
+		<!-- <button type="button" onclick="renewimg()"> renew img</button> -->
+	</div>
+</div>
+<hr />
+</body>
+</html>
